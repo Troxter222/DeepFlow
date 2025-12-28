@@ -44,7 +44,7 @@ DeepFlow was trained on 6,000 sparse spatial points.
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/DeepFlow.git
+git clone https://github.com/Troxter222/DeepFlow.git
 cd DeepFlow
 ```
 
