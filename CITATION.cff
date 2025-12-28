@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use DeepFlow in your research, please cite it as follows."
+authors:
+  - family-names: "Sulonov"
+    given-names: "Ali"
+title: "DeepFlow: Physics-Informed Neural Networks for Inverse Fluid Dynamics"
+version: 1.0.0
+date-released: 2025-12-28
+license: MIT
+repository-code: "https://github.com/Troxter222/DeepFlow"
+keywords:
+  - physics-informed-neural-networks
+  - navier-stokes
+  - deep-learning
+  - scientific-machine-learning
+  - siren
