@@ -6,6 +6,7 @@ venv/
 env/
 
 # Data & Models (Too large for git)
+data/*.csv
 data/*.npy
 *.pth
 *.pt

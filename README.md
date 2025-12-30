@@ -29,14 +29,32 @@ $$
 
 ## 📊 Results
 
-**Case Study: Kovasznay Flow**
+**Case Study: Kovasznay Flow**  
 DeepFlow was trained on 6,000 sparse spatial points.
-*   **True Reynolds Number:** 20.0
-*   **Discovered Reynolds Number:** ~19.98 (Error < 0.1%)
-*   **Pressure Reconstruction:** Fully recovered hidden pressure field.
+
+- **True Reynolds Number:** 20.0  
+- **Discovered Reynolds Number:** 12.86 (**Error:** 35.71%)  
+- **Pressure Reconstruction:** Pressure field reconstructed **partially** (visible discrepancy vs ground truth).
 
 ![Result](deepflow_final_result.png)
-*(Visualization of Ground Truth vs. DeepFlow Prediction)*
+*(Left: Ground Truth Pressure | Right: DeepFlow Prediction via Hidden Physics)*
+
+---
+
+## 🌪️ Phase 2: Transient Dynamics (Time-Dependent)
+**Case Study: Decaying Taylor-Green Vortex**
+
+A complex unsteady flow where vortices decay over time due to viscosity. The network must learn 4D spatio-temporal dynamics $(x, y, t)$.
+
+*   **Objective:** Learn the decay rate and discover Viscosity ($\nu$).
+*   **Challenges:** 1,000,000 data points, 4D gradients, Chain Rule Normalization.
+*   **Results:**
+    *   True Viscosity $\nu$: **0.1000**
+    *   Discovered $\nu$: **0.1063** (Error ~6%)
+    *   Learned to simulate energy dissipation over time.
+
+![Vortex Decay](phase2/vortex_decay.gif)
+*(Visualization of the vortex decay learned by the neural network)*
 
 ---
 
@@ -64,7 +82,31 @@ python train.py
 # 3. Fine-tune with L-BFGS & Visualize (Precision Phase)
 python finalize_pro.py
 ```
+
+### 4. Run Phase 2 (Transient)
+
+```bash
+# Generate 1M points dataset
+python phase2/generate_vortex.py
+# Train with Time-Dependency
+python phase2/train_transient.py
+# Render GIF
+python phase2/animate.py
+```
+
 ---
+
+### 🔗 Citation
+If you use this code for your research, please cite it as:
+
+```bash
+@software{DeepFlow2025,
+  author = {Ali Sultonov},
+  title = {DeepFlow: Physics-Informed Neural Networks for Inverse Fluid Dynamics},
+  year = {2025},
+  url = {https://github.com/Troxter222/DeepFlow}
+}
+```
 
 ### 🤝 Contributing
 Contributions are welcome! Please open an issue or submit a PR for improvements in the physics engine or new PDE implementations.
