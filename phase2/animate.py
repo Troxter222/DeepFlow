@@ -38,7 +38,6 @@ def create_animation():
         psi = out[:, 0].cpu().numpy().reshape(res, res)
         
     contour = ax.contourf(X, Y, psi, levels=50, cmap='inferno')
-    title = ax.set_title(f"Time: {t_start:.2f}")
     plt.colorbar(contour, ax=ax)
 
     def update(frame):

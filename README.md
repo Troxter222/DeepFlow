@@ -54,6 +54,7 @@ A complex unsteady flow where vortices decay over time due to viscosity. The net
     *   Learned to simulate energy dissipation over time.
 
 ![Vortex Decay](phase2/vortex_decay.gif)
+
 *(Visualization of the vortex decay learned by the neural network)*
 
 ---
