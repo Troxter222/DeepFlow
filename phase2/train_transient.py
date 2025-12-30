@@ -12,7 +12,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 DATA_PATH = "data/taylor_green.npy"
 BATCH_SIZE = 10000 
 EPOCHS = 50
-LR = 1e-4          # <--- УМЕНЬШИЛИ СКОРОСТЬ (было 1e-3)
+LR = 1e-4
 
 # === SCALING CONSTANTS ===
 SPATIAL_SCALE = np.pi  
@@ -65,15 +65,15 @@ def compute_transient_physics(model, coords_norm, nu_est):
     return torch.mean(f_u**2 + f_v**2)
 
 def train_phase2():
-    print(f"🚀 PHASE 2: Transient Dynamics (Stabilized) on {DEVICE}")
+    print(f"PHASE 2: Transient Dynamics (Stabilized) on {DEVICE}")
     
     try:
         raw_data = np.load(DATA_PATH)
     except Exception as e:
-        print(f"❌ Error loading data: {e}")
+        print(f"Error loading data: {e}")
         return
     
-    print(f"✅ Loaded {raw_data.shape[0]} points.")
+    print(f"Loaded {raw_data.shape[0]} points.")
     
     # Input: [x, y, t] -> Indices 1, 2, 0
     X_raw = raw_data[:, [1, 2, 0]]
@@ -98,7 +98,7 @@ def train_phase2():
     
     optimizer = torch.optim.Adam(model.parameters(), lr=LR)
     
-    print("🔥 Training started with WARM-UP Strategy...")
+    print("Training started with WARM-UP Strategy...")
     
     for epoch in range(EPOCHS):
         model.train()
@@ -106,12 +106,11 @@ def train_phase2():
         phys_loss_accum = 0
         
         # === STRATEGY: WARM-UP ===
-        # Первые 5 эпох учим только данные. Физику включаем потом.
         if epoch < 5:
             phys_weight = 0.0
             status = "WARMUP (Data only)"
         else:
-            phys_weight = 1e-3 # Начинаем с малого веса физики
+            phys_weight = 1e-3
             status = "PHYSICS ON"
 
         for batch_in, batch_out in loader:
@@ -142,7 +141,6 @@ def train_phase2():
             loss.backward()
             
             # === SAFETY: TIGHT CLIPPING ===
-            # Жестко обрезаем градиенты, чтобы не было взрывов
             torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=0.5)
             
             optimizer.step()
@@ -157,7 +155,7 @@ def train_phase2():
         
     os.makedirs("phase2", exist_ok=True)
     torch.save(model.state_dict(), "phase2/model_transient.pth")
-    print("✅ Phase 2 Model Saved.")
+    print("Phase 2 Model Saved.")
 
 if __name__ == "__main__":
     train_phase2()

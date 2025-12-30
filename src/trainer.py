@@ -8,9 +8,8 @@ class PINNTrainer:
         self.train_loader = train_loader
         self.optimizer = optimizer
         self.device = device
-        # Убрали Scaler, так как float16 убивает вторые производные
         
-    def train_epoch(self, epoch_idx, physics_weight=0.1): # physics_weight можно уменьшить если снова взрыв
+    def train_epoch(self, epoch_idx, physics_weight=0.1):
         self.model.train()
         total_loss = 0
         data_loss_accum = 0

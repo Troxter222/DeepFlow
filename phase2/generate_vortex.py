@@ -164,13 +164,8 @@ import numpy as np
 import os
 
 def generate_taylor_green(n_points=1000000, nu=0.1):
-    """
-    Генерация датасета Unsteady Taylor-Green Vortex.
-    Формат: .npy (бинарный, быстрый)
-    Размер: 1 млн точек.
-    """
-    print("🌪️ Generating Taylor-Green Vortex (Transient)...")
-    print(f"🎯 Target: {n_points} points, Viscosity (nu) = {nu}")
+    print("Generating Taylor-Green Vortex (Transient)...")
+    print(f"Target: {n_points} points, Viscosity (nu) = {nu}")
     
     x = np.random.uniform(-np.pi, np.pi, n_points).astype(np.float32)
     y = np.random.uniform(-np.pi, np.pi, n_points).astype(np.float32)

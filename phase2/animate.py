@@ -12,7 +12,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MODEL_PATH = "phase2/model_transient.pth"
 
 def create_animation():
-    print("🎥 Rendering Animation...")
+    print("Rendering Animation...")
     model = DeepFlowNet().to(DEVICE)
     model.load_state_dict(torch.load(MODEL_PATH))
     
@@ -61,7 +61,7 @@ def create_animation():
     
     save_path = "phase2/vortex_decay.gif"
     ani.save(save_path, writer='pillow', fps=10)
-    print(f"🎬 Animation saved to {save_path}")
+    print(f"Animation saved to {save_path}")
 
 if __name__ == "__main__":
     create_animation()
